@@ -1,4 +1,4 @@
-package pl.nieckarz.librarymanager.security;
+package pl.nieckarz.librarymanager.security.config;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import pl.nieckarz.librarymanager.appuser.AppUserService;
+import pl.nieckarz.librarymanager.security.LoginSuccessHandler;
 
 @Configuration
 @AllArgsConstructor
@@ -19,6 +21,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AppUserService appUserService;
+    private final LoginSuccessHandler loginSuccessHandler;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
@@ -30,11 +34,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").hasRole("USER")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/**").hasRole("USER")
+                .antMatchers("/admin/**","/**").hasRole("ADMIN")
                 .antMatchers("/register").permitAll()
                 .and()
-                .formLogin().permitAll();
+                .formLogin().successHandler(loginSuccessHandler).permitAll();
     }
 
     @Bean
@@ -45,6 +49,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         return provider;
     }
+
+
 
 
 
