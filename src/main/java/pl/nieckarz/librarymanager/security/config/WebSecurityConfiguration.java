@@ -10,9 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import pl.nieckarz.librarymanager.appuser.AppUserService;
-import pl.nieckarz.librarymanager.security.LoginSuccessHandler;
 
 @Configuration
 @AllArgsConstructor
@@ -21,7 +19,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AppUserService appUserService;
-    private final LoginSuccessHandler loginSuccessHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -32,29 +29,26 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .httpBasic()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/hello/**").hasRole("USER")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/hello/**", "/books").hasRole("USER")
+                .antMatchers("/admin","admin/**").hasRole("ADMIN")
                 .and()
-                .formLogin().permitAll()
-                .and()
-                .formLogin().successHandler(loginSuccessHandler);
+                .formLogin().disable();
     }
 
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         provider.setUserDetailsService(appUserService);
 
         return provider;
     }
-
-
-
 
 
 }
