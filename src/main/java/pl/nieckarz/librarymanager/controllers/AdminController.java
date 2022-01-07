@@ -8,6 +8,7 @@ import pl.nieckarz.librarymanager.appuser.AppUserService;
 import pl.nieckarz.librarymanager.book.entity.Book;
 import pl.nieckarz.librarymanager.book.BookService;
 import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
+import pl.nieckarz.librarymanager.payload.Response;
 
 import java.security.Principal;
 import java.util.List;
@@ -37,7 +38,7 @@ public class AdminController {
 
     
     @GetMapping("/timeout")
-    public List<BorrowedBook> timeout(){
+    public List<Response> timeout(){
 
         return bookService.timeout();
     }

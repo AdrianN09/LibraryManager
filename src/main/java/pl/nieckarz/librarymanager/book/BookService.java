@@ -3,11 +3,12 @@ package pl.nieckarz.librarymanager.book;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.nieckarz.librarymanager.book.entity.Book;
-import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
 import pl.nieckarz.librarymanager.book.repositories.BookRepository;
 import pl.nieckarz.librarymanager.book.repositories.BorrowedBookRepository;
+import pl.nieckarz.librarymanager.payload.Response;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,8 +28,18 @@ public class BookService {
     }
 
 
-    //TODO: fix json bug
-    public List<BorrowedBook> timeout() {
-        return borrowedBookRepository.findAllByToReturnIsBefore(LocalDate.now());
+   
+    public List<Response> timeout() {
+        Response response = new Response();
+        List<Response> responses = new ArrayList<>();
+
+         borrowedBookRepository.findAllByToReturnIsBefore(LocalDate.now()).forEach(e ->{
+            response.setEmail(e.getAppUser().getEmail());
+            response.setTitle(e.getTitle());
+            responses.add(response) ;
+
+        });
+
+         return responses;
     }
 }
