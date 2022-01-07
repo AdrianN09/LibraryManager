@@ -20,7 +20,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         AppUser appUser = (AppUser) authentication.getPrincipal();
 
-        String redirectURL = "/";
+        String redirectURL = "/hello";
 
         if (appUser.getAppUserRole().toString() == "ROLE_ADMIN") {
             redirectURL = "/admin";

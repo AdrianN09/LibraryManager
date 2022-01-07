@@ -34,12 +34,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").hasRole("USER")
-                .antMatchers("/admin/**","/**").hasRole("ADMIN")
-                .antMatchers("/register").permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/hello").hasRole("USER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
-                .formLogin().successHandler(loginSuccessHandler).permitAll();
+                .formLogin().permitAll()
+                .and()
+                .formLogin().successHandler(loginSuccessHandler);
     }
+
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
