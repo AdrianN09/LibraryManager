@@ -1,13 +1,26 @@
 package pl.nieckarz.librarymanager.book;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/admin")
+@AllArgsConstructor
 public class BookController {
 
+    private BookService bookService;
 
+    @GetMapping
+    public List<Book> getAllBooks(){
+        return bookService.findAllBooks();
+    }
+
+    @PostMapping
+    public Book addNewBook(@RequestBody Book book){
+        return bookService.save(book);
+    }
 
 }

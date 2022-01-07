@@ -8,10 +8,12 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.nieckarz.librarymanager.book.borrowed.BorrowedBook;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,6 +28,10 @@ public class AppUser implements UserDetails {
     private String firstName;
     private String lastName;
     private String password;
+
+    @OneToMany(mappedBy="appUser")
+    private Set<BorrowedBook> borrowedBooks;
+
 
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
