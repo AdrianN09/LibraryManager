@@ -3,14 +3,12 @@ package pl.nieckarz.librarymanager.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.nieckarz.librarymanager.appuser.AppUser;
 import pl.nieckarz.librarymanager.appuser.AppUserService;
 import pl.nieckarz.librarymanager.book.entity.Book;
 import pl.nieckarz.librarymanager.book.BookService;
-import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
-import pl.nieckarz.librarymanager.payload.Response;
+import pl.nieckarz.librarymanager.responses.BorrowDetailsResponse;
+import pl.nieckarz.librarymanager.responses.UserListResponse;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -32,14 +30,19 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public Iterable<AppUser> getAllUsers(){
+    public List<UserListResponse> getAllUsers() {
         return appUserService.findAllUsers();
     }
 
-    
     @GetMapping("/timeout")
-    public List<Response> timeout(){
+    public List<BorrowDetailsResponse> timeout() {
 
         return bookService.timeout();
     }
+
+    @DeleteMapping("/{title}")
+    public void deleteBook(@PathVariable(name = "title") String title) {
+        bookService.deleteBook(title);
+    }
+
 }

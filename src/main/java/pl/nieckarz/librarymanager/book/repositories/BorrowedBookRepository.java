@@ -8,14 +8,19 @@ import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BorrowedBookRepository extends JpaRepository<BorrowedBook,Long> {
 
    List<BorrowedBook> findAllByAppUser_Email(String email);
 
+   List<BorrowedBook> findAllByAppUser_EmailAndTitle(String email,String title);
+
    List<BorrowedBook> findAllByToReturnIsBefore(LocalDate localDate);
 
-   void deleteBorrowedBookByTitleAndAndAppUser_Email(String title, String email);
+   void deleteBorrowedBookByIdAndAndAppUser_Email(Long id,String email);
+
+
 
 }

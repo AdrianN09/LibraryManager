@@ -21,13 +21,13 @@ public class BorrowedBook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser appUser;
 
     private String title;
-    private LocalDate toReturn = LocalDate.now().minusDays(7);
+    private LocalDate toReturn = LocalDate.now().plusDays(7);
 
 
 }

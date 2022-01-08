@@ -30,7 +30,6 @@ public class Book {
         this.booksAvailable = inStock;
     }
 
-
     public String getIsbn() {
         return isbn;
     }

@@ -35,11 +35,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/hello/**", "/books").hasRole("USER")
-                .antMatchers("/admin","admin/**").hasRole("ADMIN")
+                .antMatchers("/admin", "admin/**").hasRole("ADMIN")
                 .and()
                 .formLogin().disable();
     }
-
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
@@ -49,6 +48,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         return provider;
     }
-
 
 }

@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @DeleteMapping("/return/{title}")
-    public void returnBook(@PathVariable(name = "title") String title, Principal principal){
-         appUserService.returnBook(title, principal.getName());
+    public void returnBook(@PathVariable(name = "title") String title, Principal principal) {
+        appUserService.returnBook(title, principal.getName());
     }
 }

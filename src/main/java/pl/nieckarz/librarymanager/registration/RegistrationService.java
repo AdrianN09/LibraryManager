@@ -12,15 +12,18 @@ import pl.nieckarz.librarymanager.appuser.AppUserService;
 public class RegistrationService {
 
     private final AppUserService appUserService;
+    private final EmailValidator emailValidator;
 
     public String register(RegistrationRequest request) {
 
+        emailValidator.test(request.getEmail());
+
         return appUserService.signUpUser(new AppUser(
-                request.getFirstName(),
-                request.getLastName(),
-                request.getEmail(),
-                request.getPassword(),
-                AppUserRole.ROLE_USER
+                        request.getFirstName(),
+                        request.getLastName(),
+                        request.getEmail(),
+                        request.getPassword(),
+                        AppUserRole.ROLE_USER
                 )
         );
     }
