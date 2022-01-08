@@ -1,5 +1,6 @@
 # LibraryManager
 Main project: library management system
+spring jpa, spring security, REST API, PostgreSQL, lombok
 
 This API allows you to manage your library
 
