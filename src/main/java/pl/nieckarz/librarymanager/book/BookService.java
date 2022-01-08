@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.nieckarz.librarymanager.book.entity.Book;
 import pl.nieckarz.librarymanager.book.repositories.BookRepository;
 import pl.nieckarz.librarymanager.book.repositories.BorrowedBookRepository;
+import pl.nieckarz.librarymanager.exceptions.delete.InvalidDeleteException;
 import pl.nieckarz.librarymanager.exceptions.resources.ResourceNotFoundException;
 import pl.nieckarz.librarymanager.responses.BorrowDetailsResponse;
 
@@ -41,7 +42,7 @@ public class BookService {
         Book book = bookRepository.findByTitle(title).orElseThrow(() -> new ResourceNotFoundException("Book", "title", title));
 
         if (book.getInStock() != book.getBooksAvailable()) {
-            throw new IllegalStateException("Cant delete book: book is borrowed");
+            throw new InvalidDeleteException(title);
         }
         bookRepository.delete(book);
     }

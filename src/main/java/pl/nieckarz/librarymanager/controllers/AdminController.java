@@ -36,7 +36,6 @@ public class AdminController {
 
     @GetMapping("/timeout")
     public List<BorrowDetailsResponse> timeout() {
-
         return bookService.timeout();
     }
 

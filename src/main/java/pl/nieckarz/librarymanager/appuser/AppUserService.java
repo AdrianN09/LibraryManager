@@ -93,6 +93,7 @@ public class AppUserService implements UserDetailsService {
 
         List<BorrowedBook> borrowedBooks = borrowedBookRepository.findAllByAppUser_EmailAndTitle(email, title);
 
+
         if (borrowedBooks.size() == 0) {
             throw new ResourceNotFoundException("borrowedBook", "title", title);
 

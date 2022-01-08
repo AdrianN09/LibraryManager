@@ -27,7 +27,7 @@ public class BorrowedBook {
     private AppUser appUser;
 
     private String title;
-    private LocalDate toReturn = LocalDate.now().plusDays(7);
+    private LocalDate toReturn = LocalDate.now().minusDays(7);
 
 
 }
