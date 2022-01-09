@@ -1,7 +1,21 @@
 # LibraryManager
 Main project: library management system
+spring jpa, spring security, REST API, PostgreSQL, lombok
 
 This API allows you to manage your library
+
+Users detals table:
+
+![2022-01-08_18h21_46](https://user-images.githubusercontent.com/63502583/148654484-7e7330e4-d4f4-4de2-a5d3-fc95a0d51b09.png)
+
+Borrwed books table: 
+
+![2022-01-08_18h22_02](https://user-images.githubusercontent.com/63502583/148654526-c5228035-d274-42dd-b0c8-fb67950cc5f4.png)
+
+books tabke:
+
+![2022-01-08_18h21_55](https://user-images.githubusercontent.com/63502583/148654516-8837f9fd-68c4-4398-9ab3-96b432b7325e.png)
+
 
 *User*
 
