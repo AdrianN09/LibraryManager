@@ -9,7 +9,9 @@ import pl.nieckarz.librarymanager.exceptions.delete.InvalidDeleteException;
 import pl.nieckarz.librarymanager.exceptions.resources.ResourceNotFoundException;
 import pl.nieckarz.librarymanager.responses.BorrowDetailsResponse;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,8 @@ public class BookService {
         List<BorrowDetailsResponse> responses = new ArrayList<>();
 
         borrowedBookRepository.findAllByToReturnIsBefore(LocalDate.now())
-                .forEach(e -> responses.add(new BorrowDetailsResponse(e.getAppUser().getEmail(), e.getTitle())));
+                .forEach(e -> responses.add(new BorrowDetailsResponse(e.getAppUser().getEmail(), e.getTitle(),e.getToReturn(),
+                        (int) ChronoUnit.DAYS.between(e.getToReturn(),LocalDate.now()))));
 
         return responses;
     }
