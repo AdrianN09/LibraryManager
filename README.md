@@ -63,9 +63,11 @@ custom exception if user try to return book that dont rented
 
 #/admin
 GET
+
 ![image](https://user-images.githubusercontent.com/63502583/148653652-b3151941-b805-4eaa-bef0-a30bbf87f75d.png)
 
 POST admin is able to add new book
+
 ![image](https://user-images.githubusercontent.com/63502583/148695280-abeb74dc-b82f-4df2-be1e-76a2b2d787f9.png)
 
 #/admin/users
