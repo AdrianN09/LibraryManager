@@ -31,15 +31,7 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public List<BorrowDetailsResponse> timeout() {
-        List<BorrowDetailsResponse> responses = new ArrayList<>();
 
-        borrowedBookRepository.findAllByToReturnIsBefore(LocalDate.now())
-                .forEach(e -> responses.add(new BorrowDetailsResponse(e.getAppUser().getEmail(), e.getTitle(),e.getToReturn(),
-                        (int) ChronoUnit.DAYS.between(e.getToReturn(),LocalDate.now()))));
-
-        return responses;
-    }
 
     public void deleteBook(String title) {
         Book book = bookRepository.findByTitle(title).orElseThrow(() -> new ResourceNotFoundException("Book", "title", title));

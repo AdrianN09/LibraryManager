@@ -4,6 +4,7 @@ package pl.nieckarz.librarymanager.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.nieckarz.librarymanager.appuser.AppUserService;
+import pl.nieckarz.librarymanager.book.BorrowedBookService;
 import pl.nieckarz.librarymanager.book.entity.Book;
 import pl.nieckarz.librarymanager.book.BookService;
 import pl.nieckarz.librarymanager.responses.BorrowDetailsResponse;
@@ -16,8 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 public class AdminController {
 
-    private BookService bookService;
-    private AppUserService appUserService;
+    private final BookService bookService;
+    private final AppUserService appUserService;
+    private final BorrowedBookService borrowedBookService;
 
     @GetMapping
     public List<Book> getAllBooks() {
@@ -36,7 +38,7 @@ public class AdminController {
 
     @GetMapping("/timeout")
     public List<BorrowDetailsResponse> timeout() {
-        return bookService.timeout();
+        return borrowedBookService.timeout();
     }
 
     @DeleteMapping("/{title}")

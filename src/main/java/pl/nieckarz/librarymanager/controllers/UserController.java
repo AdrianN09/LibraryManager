@@ -4,6 +4,7 @@ package pl.nieckarz.librarymanager.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.nieckarz.librarymanager.appuser.AppUserService;
+import pl.nieckarz.librarymanager.book.BorrowedBookService;
 import pl.nieckarz.librarymanager.book.entity.Book;
 import pl.nieckarz.librarymanager.book.BookService;
 import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
@@ -16,12 +17,12 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
 
-    private BookService bookService;
-    private AppUserService appUserService;
+    private final BookService bookService;
+    private final BorrowedBookService borrowedBookService;
 
     @GetMapping
     public List<BorrowedBook> getUserDetails(Principal principal) {
-        return appUserService.findUserBooks(principal.getName());
+        return borrowedBookService.findUserBooks(principal.getName());
     }
 
     @GetMapping("/borrow")
@@ -31,11 +32,11 @@ public class UserController {
 
     @PostMapping("/borrow/{title}")
     public String borrowBook(@PathVariable(name = "title") String title, Principal principal) {
-        return appUserService.borrowBookByTitle(title, principal.getName());
+        return borrowedBookService.borrowBookByTitle(title, principal.getName());
     }
 
     @DeleteMapping("/return/{title}")
     public void returnBook(@PathVariable(name = "title") String title, Principal principal) {
-        appUserService.returnBook(title, principal.getName());
+        borrowedBookService.returnBook(title, principal.getName());
     }
 }

@@ -10,9 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import pl.nieckarz.librarymanager.book.BorrowedBookService;
 import pl.nieckarz.librarymanager.book.entity.Book;
-import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
 import pl.nieckarz.librarymanager.book.repositories.BookRepository;
 import pl.nieckarz.librarymanager.book.repositories.BorrowedBookRepository;
 import pl.nieckarz.librarymanager.exceptions.resources.ResourceNotFoundException;
@@ -30,6 +29,8 @@ public class AppUserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final BorrowedBookRepository borrowedBookRepository;
     private final BookRepository bookRepository;
+    private final BorrowedBookService borrowedBookService;
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -37,19 +38,15 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
     }
 
-    public List<BorrowedBook> findUserBooks(String email) {
-        return borrowedBookRepository.findAllByAppUser_Email(email);
-    }
-
     public List<UserListResponse> findAllUsers() {
         List<UserListResponse> userListResponses = new ArrayList<>();
 
-        appUserRepository.findAllByAppUserRoleEquals(AppUserRole.ROLE_USER).forEach(e ->
+        appUserRepository.findAllByAppUserRoleEquals(AppUserRole.ROLE_USER).forEach(user ->
                 userListResponses.add(new UserListResponse(
-                        e.getEmail(),
-                        e.getFirstName(),
-                        e.getLastName(),
-                        borrowedBookRepository.findAllByAppUser_Email(e.getEmail()))));
+                        user.getEmail(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        borrowedBookRepository.findAllByAppUser_Email(user.getEmail()))));
 
         return userListResponses;
     }
@@ -68,45 +65,9 @@ public class AppUserService implements UserDetailsService {
         return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
-    public String borrowBookByTitle(String title, String email) {
-        AppUser appUser = appUserRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
-
-        Book book = bookRepository.findByTitle(title).orElseThrow(() -> new ResourceNotFoundException("Book", "title", title));
-
-        if (book.getBooksAvailable() > 0) {
-            BorrowedBook borrowedBook = new BorrowedBook();
-            borrowedBook.setAppUser(appUser);
-            borrowedBook.setTitle(title);
-            borrowedBookRepository.save(borrowedBook);
-            book.setBooksAvailable(book.getBooksAvailable() - 1);
-            bookRepository.save(book);
-
-            return email + " borrowed: " + title;
-        } else return "out of stock";
-
-    }
-
-    @Transactional
-    public void returnBook(String title, String email) {
-
-        Book book = bookRepository.findByTitle(title).orElseThrow(() -> new ResourceNotFoundException("Book", "title", title));
-
-        List<BorrowedBook> borrowedBooks = borrowedBookRepository.findAllByAppUser_EmailAndTitle(email, title);
-
-
-        if (borrowedBooks.size() == 0) {
-            throw new ResourceNotFoundException("borrowedBook", "title", title);
-
-        } else {
-            borrowedBookRepository.deleteBorrowedBookByIdAndAndAppUser_Email(borrowedBooks.get(0).getId(), email);
-            book.setBooksAvailable(book.getBooksAvailable() + 1);
-        }
-
-        bookRepository.save(book);
-    }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void fillUsers() {
+    public void fillDB() {
 
         bookRepository.save(new Book("9780974192581", "Napoleon Hill", "Think and grow rich", 10));
         bookRepository.save(new Book("9780671043216", "Dale Carnegie", "How to Win Friends and Influence People", 2));
@@ -116,8 +77,9 @@ public class AppUserService implements UserDetailsService {
         appUserRepository.save(admin);
         appUserRepository.save(user);
 
-        borrowBookByTitle("Think and grow rich", user.getEmail());
+        borrowedBookService.borrowBookByTitle("Think and grow rich", user.getEmail());
 
     }
+
 
 }
