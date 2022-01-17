@@ -12,7 +12,7 @@ Borrwed books table:
 
 ![2022-01-08_18h22_02](https://user-images.githubusercontent.com/63502583/148654526-c5228035-d274-42dd-b0c8-fb67950cc5f4.png)
 
-books tabke:
+books table:
 
 ![2022-01-08_18h21_55](https://user-images.githubusercontent.com/63502583/148654516-8837f9fd-68c4-4398-9ab3-96b432b7325e.png)
 
@@ -62,8 +62,13 @@ custom exception if user try to return book that dont rented
 *Admin*
 
 #/admin
+GET
 
 ![image](https://user-images.githubusercontent.com/63502583/148653652-b3151941-b805-4eaa-bef0-a30bbf87f75d.png)
+
+POST admin is able to add new book
+
+![image](https://user-images.githubusercontent.com/63502583/148695280-abeb74dc-b82f-4df2-be1e-76a2b2d787f9.png)
 
 #/admin/users
 
@@ -79,6 +84,7 @@ custom exception while admin trying to delete book that is borrowed
 
 #/admin/timeout
 
-admin is able to see user email that dont return book before toReturn date
+admin is able to see users emails that dont return book before toReturn date
 
-![image](https://user-images.githubusercontent.com/63502583/148654271-83eb9513-ccd8-4667-bd10-e8c491a2c4d5.png)
+![2022-01-09_19h18_10](https://user-images.githubusercontent.com/63502583/148695211-1b49bee1-2781-4ad6-bdf9-d9c1ed46a2c8.png)
+d
