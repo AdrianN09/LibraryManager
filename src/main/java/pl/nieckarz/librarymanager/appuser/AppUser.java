@@ -8,7 +8,7 @@ import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
+import pl.nieckarz.librarymanager.models.entity.BorrowedBook;
 
 import javax.persistence.*;
 import java.util.Collection;

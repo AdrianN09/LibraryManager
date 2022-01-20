@@ -3,11 +3,10 @@ package pl.nieckarz.librarymanager.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.nieckarz.librarymanager.appuser.AppUserService;
-import pl.nieckarz.librarymanager.book.BorrowedBookService;
-import pl.nieckarz.librarymanager.book.entity.Book;
-import pl.nieckarz.librarymanager.book.BookService;
-import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
+import pl.nieckarz.librarymanager.models.BorrowedBookService;
+import pl.nieckarz.librarymanager.models.entity.Book;
+import pl.nieckarz.librarymanager.models.BookService;
+import pl.nieckarz.librarymanager.models.entity.BorrowedBook;
 
 import java.security.Principal;
 import java.util.List;

@@ -12,10 +12,10 @@ import java.time.ZonedDateTime;
 public class InvalidDeleteHandler {
 
     @ExceptionHandler(value = {InvalidDeleteException.class})
-    public ResponseEntity<Object> handleInvalidDeleteException(InvalidDeleteException e) {
+    public ResponseEntity<Object> handleInvalidDeleteException(InvalidDeleteException request) {
 
         InvalidDelete invalidDelete = new InvalidDelete(
-                e.getMessage(),
+                request.getMessage(),
                 HttpStatus.FORBIDDEN,
                 ZonedDateTime.now(ZoneId.of("Z"))
         );

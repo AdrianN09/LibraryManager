@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
+import pl.nieckarz.librarymanager.models.entity.BorrowedBook;
 
 import java.util.List;
 

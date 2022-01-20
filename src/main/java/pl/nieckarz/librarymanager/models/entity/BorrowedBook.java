@@ -1,4 +1,4 @@
-package pl.nieckarz.librarymanager.book.entity;
+package pl.nieckarz.librarymanager.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

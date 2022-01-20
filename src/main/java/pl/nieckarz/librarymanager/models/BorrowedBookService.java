@@ -1,4 +1,4 @@
-package pl.nieckarz.librarymanager.book;
+package pl.nieckarz.librarymanager.models;
 
 
 import lombok.AllArgsConstructor;
@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.nieckarz.librarymanager.appuser.AppUser;
 import pl.nieckarz.librarymanager.appuser.AppUserRepository;
-import pl.nieckarz.librarymanager.book.entity.Book;
-import pl.nieckarz.librarymanager.book.entity.BorrowedBook;
-import pl.nieckarz.librarymanager.book.repositories.BookRepository;
-import pl.nieckarz.librarymanager.book.repositories.BorrowedBookRepository;
+import pl.nieckarz.librarymanager.models.entity.Book;
+import pl.nieckarz.librarymanager.models.entity.BorrowedBook;
+import pl.nieckarz.librarymanager.models.repositories.BookRepository;
+import pl.nieckarz.librarymanager.models.repositories.BorrowedBookRepository;
 import pl.nieckarz.librarymanager.exceptions.resources.ResourceNotFoundException;
 import pl.nieckarz.librarymanager.responses.BorrowDetailsResponse;
 

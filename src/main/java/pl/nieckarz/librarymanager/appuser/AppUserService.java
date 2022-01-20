@@ -10,10 +10,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.nieckarz.librarymanager.book.BorrowedBookService;
-import pl.nieckarz.librarymanager.book.entity.Book;
-import pl.nieckarz.librarymanager.book.repositories.BookRepository;
-import pl.nieckarz.librarymanager.book.repositories.BorrowedBookRepository;
+import pl.nieckarz.librarymanager.models.BorrowedBookService;
+import pl.nieckarz.librarymanager.models.entity.Book;
+import pl.nieckarz.librarymanager.models.repositories.BookRepository;
+import pl.nieckarz.librarymanager.models.repositories.BorrowedBookRepository;
 import pl.nieckarz.librarymanager.exceptions.resources.ResourceNotFoundException;
 import pl.nieckarz.librarymanager.responses.UserListResponse;
 
@@ -36,6 +36,7 @@ public class AppUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         return appUserRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+
     }
 
     public List<UserListResponse> findAllUsers() {
